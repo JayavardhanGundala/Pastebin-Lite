@@ -50,7 +50,7 @@ const Create = () => {
       );
 
       // SAVE RESULT
-      setCreatedPaste(res.data);
+      setCreatedPaste(res.data)
       console.log(res)
 
       // CLEAR FORM
