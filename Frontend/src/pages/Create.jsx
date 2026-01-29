@@ -44,7 +44,7 @@ const Create = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:4500/api/pastes",
+        "https://pastebin-lite-6m8x.onrender.com/api/pastes",
         payload,
         { headers: { "Content-Type": "application/json" } }
       );
