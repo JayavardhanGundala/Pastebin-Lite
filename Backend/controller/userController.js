@@ -45,7 +45,7 @@ export const create=async(req,res)=>{
             expires_At:expires_At??null
             
         })
-        return res.status(201).json({msg:`https://pastebin-lite-6m8x.onrender.com/pastes/${data._id}`,max_views,expires_At,data:data._id})
+        return res.status(201).json({msg:`https://pastebin-lite-6m8x.onrender.com/api/pastes/${data._id}`,max_views,expires_At,data:data._id})
 
 
     }
