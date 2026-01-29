@@ -10,6 +10,6 @@ dotenv.config()
 connectDb()
 app.use("/api",route)
 
-app.listen("https://pastebin-lite-6m8x.onrender.com",()=>{
+app.listen(process.env.port,()=>{
     console.log("server running",)
 })  
