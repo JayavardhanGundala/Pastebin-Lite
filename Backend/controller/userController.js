@@ -1,6 +1,13 @@
 import mongoose from "mongoose"
 import { user } from "../Model/userModel.js"
 import { request } from "express"
+const getNow = (req) => {
+  if (process.env.TEST_MODE === "1" && req.headers["x-test-now-ms"]) {
+    return Number(req.headers["x-test-now-ms"]);
+  }
+  return Date.now();
+};
+
 export const checking=async (req,res)=>{
     try{
     const dbState=mongoose.connection.readyState
@@ -37,7 +44,14 @@ export const create=async(req,res)=>{
 
         
 
-        const expires_At=(ttl_seconds!==null && ttl_seconds!==undefined)? new Date(Date.now()+ttl_seconds*1000):null
+        /*const expires_At=(ttl_seconds!==null && ttl_seconds!==undefined)? new Date(Date.now()+ttl_seconds*1000):null*/
+        const now = getNow(req);
+
+        const expires_At =
+        ttl_seconds !== null && ttl_seconds !== undefined
+            ? new Date(now + ttl_seconds * 1000)
+            : null;
+
         
         const data=await user.create({
             text,
@@ -60,19 +74,22 @@ export const getUser=async (req,res)=>{
         return res.status(404).json({msg:"Enter valid url with id"})
     }
     if(textExists.expires_At!==null && textExists.expires_At!==undefined){
-        if (new Date() > new Date(textExists.expires_At)) {
+        if (getNow(req) >= new Date(textExists.expires_At).getTime()) {
             return res.status(404).json({msg:"Time  expires"})
 
       }
         
     }
-    if (textExists.max_views!==null || textExists.max_views!==undefined){
+    if (textExists.max_views!==null && textExists.max_views!==undefined){
         if (textExists.max_views==0){
             return res.status(404).json({msg:"view limit over "})
         }
     }
-    textExists.max_views-=1
-    await textExists.save()
+    if (textExists.max_views !== null) {
+        textExists.max_views -= 1;
+        await textExists.save();
+        }
+
 
 
     

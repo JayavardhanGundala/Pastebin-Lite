@@ -4,6 +4,7 @@ import { useLocation, Link } from "react-router-dom";
 const Data = () => {
   const location = useLocation();
   const content = location.state?.content;
+  console.log(content)
 
   return (
     <div className="min-h-screen flex flex-col justify-center items-center gap-6">
@@ -21,6 +22,12 @@ const Data = () => {
               <p>Views:</p>
               <p className="text-red-500">
                 {content.max_views < 0 ? "Unlimited" : content.max_views}
+              </p>
+            </div>
+            <div className="mt-4 flex justify-center gap-2">
+              <p>Expires At:</p>
+              <p className="text-red-500">
+                {content.expires_At==null ? "Unlimited" : content.expires_At}
               </p>
             </div>
           </>
