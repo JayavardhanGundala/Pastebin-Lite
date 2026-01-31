@@ -2,6 +2,7 @@ import React from 'react'
 import axios from "axios"
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { Link } from "react-router-dom";
 
 const Get = () => {
     const [content,setContent]=useState("")
@@ -56,6 +57,19 @@ const Get = () => {
       >
         Send
       </button>
+            <Link
+        to="/Create"
+        className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 font-bold"
+      >
+        Create A text
+      </Link>
+
+      <Link
+        to="/Get"
+        className="bg-gray-200 text-gray-800 font-bold py-2 px-4 rounded hover:bg-gray-300"
+      >
+        Get text (URL)
+      </Link>
        {message && <p className="text-red-500">{message}</p>}
 
 
