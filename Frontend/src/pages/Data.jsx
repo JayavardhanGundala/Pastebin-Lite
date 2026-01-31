@@ -21,7 +21,9 @@ const Data = () => {
             <div className="mt-4 flex justify-center gap-2">
               <p>Views:</p>
               <p className="text-red-500">
-                {content.max_views < 0 ? "Unlimited" : content.max_views}
+                {content.max_views === null || content.max_views < 0 ? "Unlimited" : content.max_views}
+
+
               </p>
             </div>
             <div className="mt-4 flex justify-center gap-2">
